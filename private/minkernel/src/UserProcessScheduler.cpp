@@ -20,9 +20,11 @@ namespace Ne::Kernel {
 UserProcess::UserProcess()  = default;
 UserProcess::~UserProcess() = default;
 
+/***********************************************************************************/
 /// @brief Gets the last exit code.
 /// @note Not thread-safe.
 /// @return Int32 the last exit code.
+/***********************************************************************************/
 
 /***********************************************************************************/
 /// @brief Crashes the current process.

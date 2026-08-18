@@ -48,8 +48,15 @@ struct HAL_CALL_ENTRY HAL_FINAL {
 #endif
 };
 
+#ifdef __cplusplus
 EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type, const UInt64&, const SInt64& hash);
 EXTERN_C Void hali_remove_entry(const SInt64& hash);
+#else
+EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type, const UInt64, const SInt64 hash);
+EXTERN_C Void hali_remove_entry(const SInt64 hash);
+#endif
+
+EXTERN_C UInt64 hali_hash_fnv64(const Char* path);
 
 #ifdef __cplusplus
 inline Array<HAL_CALL_ENTRY, kMaxDispatchCallCount> kRegisteredSystemCalls;

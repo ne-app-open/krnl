@@ -3,7 +3,6 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-eu/krnl
 
-
 .text
 
 .extern launch_startup_fn
