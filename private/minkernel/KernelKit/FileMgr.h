@@ -12,9 +12,6 @@
 
 //! Include filesystems that the kernel supports.
 
-/// \note Ext2 is being phased out in the next NeKernel release.
-#include <FSKit/Ext2+IFS.h>
-
 #include <FSKit/NeFS.h>
 #include <FSKit/OpenHeFS.h>
 
@@ -234,60 +231,6 @@ class NeFileSystemMgr final : public IFilesystemMgr {
 };
 
 #endif  // ifdef __FSKIT_INCLUDES_NEFS__
-
-#ifdef __FSKIT_INCLUDES_EXT2__
-/**
- * @brief Based of IFilesystemMgr, takes care of managing NeFS
- * disks.
- */
-class Ext2FileSystemMgr final : public IFilesystemMgr {
- public:
-  explicit Ext2FileSystemMgr();
-  ~Ext2FileSystemMgr() override;
-
- public:
-  NE_COPY_DEFAULT(Ext2FileSystemMgr)
-
- public:
-  NodePtr Create(const Char* path) override;
-  NodePtr CreateAlias(const Char* path) override;
-  NodePtr CreateDirectory(const Char* path) override;
-  NodePtr CreateSwapFile(const Char* path) override;
-
- public:
-  bool    Remove(_Input const Char* path) override;
-  NodePtr Open(_Input const Char* path, _Input const Char* r) override;
-  Void    Write(_Input NodePtr node, _Input VoidPtr data, _Input Int32 flags,
-                _Input SizeT sz) override;
-  VoidPtr Read(_Input NodePtr node, _Input Int32 flags, _Input SizeT sz) override;
-  bool    Seek(_Input NodePtr node, _Input SizeT off) override;
-  SizeT   Tell(_Input NodePtr node) override;
-  bool    Rewind(_Input NodePtr node) override;
-
-  Void Write(_Input const Char* name, _Input NodePtr node, _Input VoidPtr data, _Input Int32 flags,
-             _Input SizeT size) override;
-
-  _Output VoidPtr Read(_Input const Char* name, _Input NodePtr node, _Input Int32 flags,
-                       _Input SizeT sz) override;
-
-  BOOL GetInfo(_Input NodePtr node, _Output FILEMGR_STAT* out) override;
-
-  BOOL ReadDir(_Input NodePtr node, _Input UInt64 cookie, _Output FILEMGR_DIRENT* out,
-               _Output UInt64* next_cookie) override;
-
-  Int32 ReadLink(_Input NodePtr node, _Output Char* buf, _Input SizeT buf_size) override;
-
- public:
-  /// @brief Get NeFS parser class.
-  /// @return The filesystem parser class.
-  Ext2FileSystemParser* GetParser();
-
- private:
-  Ext2FileSystemParser* mParser{nullptr};
-  DriveTrait            mDriveTrait;
-};
-
-#endif  // ifdef __FSKIT_INCLUDES_EXT2__
 
 #ifdef __FSKIT_INCLUDES_OPENHEFS__
 /**

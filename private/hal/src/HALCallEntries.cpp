@@ -46,7 +46,7 @@ EXTERN_C Void hali_remove_entry(const SInt64& hash) {
   kLocked = YES;
 
   for (Ne::Kernel::SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
-    if (!kRegisteredSystemCalls[i].fHash != hash) continue;
+    if (kRegisteredSystemCalls[i].fHash != hash) continue;
 
     kRegisteredSystemCalls[i].fProc      = nullptr;
     kRegisteredSystemCalls[i].fHash      = 0;
