@@ -20,6 +20,22 @@
 #include <modules/CoreGfx/TextGfx.h>
 
 #ifndef __NE_MODULAR_KERNEL_COMPONENTS__
+STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
+  PE32Loader ldr("/system/drvhost.exe");
+
+  if (ldr.IsLoaded() && rtl_create_user_process(
+                            ldr, UserProcess::ExecutableKind::kExecutableKind) != kCPSInvalidPID) {
+    (Void)(kout << "hal_real_init: Spawned the NeSystem Driver Host.\r");
+  } else {
+    (Void)(kout << "hal_real_init: warning: Driver host did not spawn.\r");
+    ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Kernel Driver Init in HAL.");
+  }
+
+  /// Implement additional driver runtime code code here ///
+
+  /// Implement additional driver runtime code code here ///
+}
+
 EXTERN_C Ne::Kernel::VoidPtr kInterruptVectorTable[];
 
 /// @brief Ne::Kernel init function.
@@ -257,6 +273,8 @@ EXTERN_C Ne::Kernel::Void hal_real_init(Ne::Kernel::Void) {
   NeFS::fs_init_nefs();
   NeFileSystemMgr::Mount(new NeFileSystemMgr());
 #endif
+
+  kei_init_drivers();
 
   UserProcessScheduler::The().SwitchTeam(kRTUserTeam);
 

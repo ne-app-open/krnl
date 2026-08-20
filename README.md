@@ -46,15 +46,15 @@ cd nekernel
 
 ## User Group
 
-Join Ne.app's [discord](https://discord.gg/uD76Qweght) to contribute and chat with contributors.
+Join Ne.app's [User Group](https://discord.gg/uD76Qweght) to and chat with users, contributors, and staff.
 
 ## Documentation
 
 - [Documentation](https://docs.src.nekernel.org/)
 
-## License
+## Licensing
 
-NeKernel is licensed under the [Apache-2.0 License](LICENSE.txt).
+Ne.app NeKernel is licensed under the [Apache-2.0 License](LICENSE.txt).
 
 ## Professional Services
 
@@ -64,6 +64,6 @@ Ne.app NeKernel services are available under Ne.app, custom module development, 
 
 <div align="center">
   <sub>
-    &copy; 2022-2026 Amlal El Mahrouss and Ne.app. Licensed under the Apache 2.0 license.
+    &copy; 2022-2026 Ne.app. Licensed under the Apache 2.0 license.
   </sub>
 </div>

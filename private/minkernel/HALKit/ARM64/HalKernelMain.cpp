@@ -20,6 +20,21 @@
 #include <modules/CoreGfx/CoreGfx.h>
 
 #ifndef __NE_MODULAR_KERNEL_COMPONENTS__
+STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
+  PE32Loader ldr("/system/drvhost.exe");
+
+  if (ldr.IsLoaded() && rtl_create_user_process(
+                            ldr, UserProcess::ExecutableKind::kExecutableKind) != kCPSInvalidPID) {
+    (Void)(kout << "hal_real_init: Spawned the NeSystem Driver Host.\r");
+  } else {
+    (Void)(kout << "hal_real_init: warning: Driver host did not spawn.\r");
+    ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Kernel Driver Init in HAL.");
+  }
+
+  /// Implement additional driver runtime code code here ///
+
+  /// Implement additional driver runtime code code here ///
+}
 EXTERN_C void hal_init_platform(Ne::Kernel::HEL::BootInfoHeader* handover_hdr) {
   using namespace Ne::Kernel;
 
@@ -40,6 +55,8 @@ EXTERN_C void hal_init_platform(Ne::Kernel::HEL::BootInfoHeader* handover_hdr) {
   Boot::ExitBootServices(handover_hdr->f_HardwareTables.f_ImageKey,
                          handover_hdr->f_HardwareTables.f_ImageHandle);
 #endif
+
+  kei_init_drivers();
 
   FB::cg_clear_video();
 

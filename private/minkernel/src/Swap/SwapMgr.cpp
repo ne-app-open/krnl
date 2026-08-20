@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-app-eu/krnl
 
-#include <NeKit/Atom.h>
+#include <KernelKit/FileMgr.h>
+#include <SwapKit/DiskSwap.h>
 
-/// @file Atom.cpp
-/// @brief Atomic primitives
+namespace Ne::Kernel {}
