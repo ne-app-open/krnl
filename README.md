@@ -1,6 +1,6 @@
 <!-- Read Me of NeKernel -->
 
-# Ne.app NeKernel Core
+# Ne.app Kernel
 
 The kernel module of the Ne.app NeSystem distribution.
 
@@ -44,7 +44,7 @@ cd nekernel
 
 ---
 
-## Community
+## User Group
 
 Join Ne.app's [discord](https://discord.gg/uD76Qweght) to contribute and chat with contributors.
 

@@ -28,7 +28,7 @@ using CFPropertyId = UIntPtr;
 /// @brief User property class.
 /// @note /prop/foo or /prop/bar are properties.
 /// ================================================================================
-class CFProperty final CF_OBJECT {
+class CFProperty _FINAL CF_OBJECT {
  public:
   CFProperty(CFRef<CFGuid> guid, CFString& name, CFPropertyId value);
   ~CFProperty() override = default;

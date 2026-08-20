@@ -114,6 +114,9 @@ inline UserPtr kRootUser = nullptr;
 /// \brief Guest user pointer.
 inline UserPtr kGuest = nullptr;
 
+/// \brief RPC/BaseHost user pointer.
+inline UserPtr kHostUser = nullptr;
+
 /// @brief Bind the built-in users.
 /// @param recovery make a recovery user when asked to.
 Void user_init_std(const Bool recovery);

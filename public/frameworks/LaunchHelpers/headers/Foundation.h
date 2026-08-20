@@ -17,7 +17,7 @@ inline constexpr auto kMaxArgs = 256;
 
 /// @brief Launch information structure.
 /// @note This structure is read-only. Modyfing its members wo't have any effect.
-struct LHLaunchInfo final {
+struct LHLaunchInfo _FINAL {
   CF::CFString            fExecutablePath{kMaxPath};
   CF::CFString            fWorkingDirectory{kMaxPath};
   CF::CFRef<CF::CFString> fArguments[kMaxArgs];

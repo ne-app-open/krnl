@@ -158,6 +158,8 @@ Void user_init_std(const Bool recovery) {
   else
     kCurrentUser = kGuest;
 
+  kHostUser = nullptr;
+
   (Void)(kout << "user_init_std: " << kCurrentUser->Name() << kendl);
 }
 

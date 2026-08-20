@@ -4,6 +4,7 @@
 // Official repository: https://github.com/ne-app-eu/krnl
 
 #include <KernelKit/CodeMgr.h>
+#include <KernelKit/KPC.h>
 #include <KernelKit/KernelTask.h>
 
 /***********************************************************************************/
@@ -18,7 +19,8 @@ namespace Ne::Kernel {
 EXTERN_C Int32 kt_kernel_task_start(HAL::StackFramePtr stack_frame, VoidPtr code) {
   MUST_PASS(stack_frame && code);
 
-  if (!stack_frame || !code) ke_stop(RUNTIME_CHECK_BAD_BEHAVIOR, "Ne::Kernel task arguments are invalid");
+  if (!stack_frame || !code)
+    ke_stop(RUNTIME_CHECK_BAD_BEHAVIOR, "Ne::Kernel task arguments are invalid");
   ((rtl_kstart_kind) (code))(stack_frame);
   if (!stack_frame->R8) ke_stop(RUNTIME_CHECK_BAD_BEHAVIOR, "Ne::Kernel task failed to run");
 
@@ -28,11 +30,23 @@ EXTERN_C Int32 kt_kernel_task_start(HAL::StackFramePtr stack_frame, VoidPtr code
 Bool KernelTaskHelper::Start(KernelTask& task_ptr, const KID& kid) {
   if (!kid) return NO;
 
+  STATIC Bool kLocked{NO};
+
+  while (kLocked);
+
+  kLocked = YES;
+
   task_ptr.Kid = kid;
 
   auto ret = kt_kernel_task_start(task_ptr.StackFrame, task_ptr.Image.LeakImage().Leak().Leak());
-  if (ret != kErrorSuccess) return FALSE;
-  
+
+  kLocked = NO;
+
+  if (ret != kErrorSuccess) {
+    err_local_get() = ret;
+    return FALSE;
+  }
+
   return TRUE;
 }
 

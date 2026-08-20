@@ -99,9 +99,9 @@ STATIC PageMgr kPageMgr;
 /// @param user User enable bit.
 /// @return The newly allocated pointer.
 _Output VoidPtr mm_alloc_ptr(SizeT sz, Bool wr, Bool user, SizeT pad_amount) {
-  static Bool       kAllocationLocked = false;
-  LockDelegate<kHeapMgrSpinMax> lock{&kAllocationLocked};
-
+  STATIC Bool       kAllocationLocked = false;
+  while (kAllocationLocked);
+  
   auto sz_fix = sz;
 
   if (sz_fix == 0) return nullptr;

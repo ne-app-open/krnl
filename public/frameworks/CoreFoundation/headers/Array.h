@@ -10,7 +10,7 @@
 
 namespace CF {
 template <class T, SizeT N>
-class CFArray final {
+class CFArray _FINAL {
  public:
   explicit CFArray() = default;
   ~CFArray()         = default;

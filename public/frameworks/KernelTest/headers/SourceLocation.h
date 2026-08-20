@@ -13,7 +13,7 @@ class KTSourceLocation;
 /// ================================================================================
 /// @brief SourceLocation class for Ne::Kernel Test Framework.
 /// ================================================================================
-class KTSourceLocation final CF_OBJECT {
+class KTSourceLocation _FINAL CF_OBJECT {
  public:
   KTSourceLocation()           = delete;
   ~KTSourceLocation() override = default;

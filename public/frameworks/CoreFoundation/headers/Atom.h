@@ -10,7 +10,7 @@
 
 namespace CF {
 template <class T>
-class CFAtom final {
+class CFAtom _FINAL {
  public:
   explicit CFAtom() = default;
   ~CFAtom()         = default;

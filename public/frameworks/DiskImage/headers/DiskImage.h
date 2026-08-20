@@ -24,13 +24,14 @@
 #define kDIOutNameLen (256)
 
 namespace DI {
+  
 /// @brief Disk Image file structure.
 /// @param disk_name Disk partition name.
 /// @param sector_sz Disk sector_sz.
 /// @param block_cnt Disk block count.
 /// @param disk_sz Disk size.
 /// @param out_name Output file name.
-struct DI_DISK_IMAGE {
+struct DI_DISK_IMAGE _FINAL {
   Char   disk_name[kDIDiskNameLen] = kDIDefaultDiskName;
   SInt32 sector_sz                 = kDISectorSz;
   SInt32 block_cnt                 = 0;

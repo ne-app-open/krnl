@@ -35,7 +35,7 @@ typedef SInt64 CFInteger64;
 typedef Char     CFChar8;
 typedef char16_t CFChar16;
 
-struct CFPoint {
+struct CFPoint _FINAL {
   CFInteger64 x_1{0UL};
   CFInteger64 y_1{0UL};
 
@@ -52,11 +52,11 @@ struct CFPoint {
   bool IsWithin(CFPoint& point);
 };
 
-struct CFColor final {
+struct CFColor _FINAL {
   CFInteger64 r, g, b, a{0};
 };
 
-struct CFRect final {
+struct CFRect _FINAL {
   CFInteger64 x{0UL};
   CFInteger64 y{0UL};
 
@@ -69,7 +69,7 @@ struct CFRect final {
   BOOL PositionMatches(CFRect& rect);
 };
 
-union CFGuid final {
+union CFGuid _FINAL {
   alignas(8) UInt16 fU8[16];
   alignas(8) UInt16 fU16[8];
   alignas(8) UInt32 fU32[4];

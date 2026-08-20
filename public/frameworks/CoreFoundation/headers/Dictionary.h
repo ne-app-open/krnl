@@ -12,7 +12,7 @@ namespace CF {
 
 /// @brief The following class makes a dictionary of values, based on their keys.
 template <class Key, class Value>
-class CFDictionary final {
+class CFDictionary _FINAL {
  public:
   explicit CFDictionary() = default;
   ~CFDictionary()         = default;

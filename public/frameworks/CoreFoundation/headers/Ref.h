@@ -17,7 +17,7 @@ class CFRef;
 /// @brief CFRef class for reference counting.
 /// ================================================================================
 template <class T>
-class CFRef final CF_OBJECT {
+class CFRef _FINAL CF_OBJECT {
  public:
   CFRef() = default;
 

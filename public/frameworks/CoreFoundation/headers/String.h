@@ -16,7 +16,7 @@ class CFStringBuilder;
 /// ================================================================================
 /// @brief CFString class for string manipulations.
 /// ================================================================================
-class CFString final CF_OBJECT {
+class CFString _FINAL CF_OBJECT {
  public:
   CFString() = delete;
 
