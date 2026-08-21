@@ -9,11 +9,10 @@ RUN mkdir /blobs
 
 COPY ./ ./src
 
-RUN echo "NeKernel: Contents have been copied to Docker."
+RUN echo "Ne.app Kernel: Contents have been copied to Docker."
 
-# Reserved for NeKernel Debugger Protocol
+# Reserved for Ne.app Kernel Debugger Protocol
 EXPOSE 8081/tcp
 
-# For the NeKernel Debugger Protocol as well (UDP)
+# For the Ne.app Kernel Debugger Protocol as well (UDP)
 EXPOSE 8081/udp
-
