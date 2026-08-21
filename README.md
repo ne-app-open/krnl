@@ -36,7 +36,7 @@ Please fork, and clone the repository. Then follow those steps:
 
 ```sh
 git clone -j8 https://github.com/ne-app-eu/krnl.git
-cd nekernel
+cd krnl
 ./scripts/setup_x64_project.sh
 ./scripts/modules_ahci_x64.sh
 ./scripts/debug_ahci_x64.sh   # For debug generic AHCI target (QEMU, UDF)

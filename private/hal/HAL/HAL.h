@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026, Amlal El Mahrouss (amlal@nekernel.org)
-// Licensed under the Apache License, Version 2.0 (see LICENSE file)
-// Official repository: https://github.com/ne-foss/ne-kernel
-
-// SPDX-License-Identifier: Proprietary
 // Copyright 2026, Ne.app, all rights reserved.
+// Official repository: https://github.com/ne-app-open/krnl
 
 #ifndef HAL_HAL_H
 #define HAL_HAL_H
