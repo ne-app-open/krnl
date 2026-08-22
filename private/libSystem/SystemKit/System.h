@@ -48,7 +48,7 @@ typedef Ref SemaphoreRef;
 /// @param symbol the symbol to look for
 /// @param dll_handle the Dylib handle.
 /// @return the proc pointer.
-IMPORT_C Ref LdrGetDylibSymbolFromHandle(_Input const Char* symbol, _Input Ref dll_handle);
+IMPORT_C VoidPtr LdrGetDylibSymbolFromHandle(_Input const Char* symbol, _Input Ref dll_handle);
 
 /// @brief Open Dylib handle.
 /// @param path dll path.
@@ -311,9 +311,9 @@ enum {
   kPowerCodeCount = kPowerCodeWake - kPowerCodeShutdown + 1,
 };
 
-IMPORT_C SInt32 PwrReadCode(_Output SInt32& code);
+IMPORT_C SInt32 PwrReadCode(_Output SInt32 code);
 
-IMPORT_C SInt32 PwrSendCode(_Output SInt32& code);
+IMPORT_C SInt32 PwrSendCode(_Output SInt32 code);
 
 // ------------------------------------------------------------------------------------------ //
 // CD-ROM API.
