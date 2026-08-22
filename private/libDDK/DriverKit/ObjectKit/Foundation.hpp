@@ -47,12 +47,4 @@ concept IsValidDriver = requires(Driver drv) {
 
 }  // namespace Ne::Kernel::DDK
 
-namespace NeApp {
-namespace Ne::Kernel {
-  namespace DDK {
-    using namespace ::Ne::Kernel::DDK;
-  }
-}  // namespace Ne::Kernel
-}  // namespace NeApp
-
 #endif
