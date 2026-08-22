@@ -7,7 +7,7 @@
 #define COMPILERKIT_VERSION_H
 
 #define BOOTLOADER_VERSION "v0.1.5-minloader"
-#define KERNEL_VERSION "v0.1.5-vmkrnl"
+#define KERNEL_VERSION "v0.1.5-vmoskrnl"
 
 #define BOOTLOADER_VERSION_BCD (0x0105)
 #define KERNEL_VERSION_BCD (0x0105)

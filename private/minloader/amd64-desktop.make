@@ -72,7 +72,7 @@ FLAG_GNU=-fshort-wchar -D__EFI_x86_64__ -D__nekernel_allow_non_nekernel_pe -Wall
                         -std=c++20 -DBOOTZ_GPT_SUPPORT -D__HAVE_NE_API__ -DBOOTZ_USE_FB -D__NE_AMD64__ -D__NE__ -DNE_AUTO_FORMAT -Wl,--disable-reloc-section
 
 BOOTLOADER=bootzldr.exe
-KERNEL_IMG=vmkrnl.exe
+KERNEL_IMG=vmoskrnl.exe
 SYSCHK=chk.efi
 BOOTNET=net.efi
 MEMTEST=memtest.efi
@@ -150,7 +150,7 @@ efi:
 	$(HTTP_GET) https://retrage.github.io/edk2-nightly/bin/DEBUGX64_OVMF.fd -O OVMF.fd
 
 BINS=*.bin
-EXECUTABLES=bootzldr.exe vmkrnl.exe OVMF.fd
+EXECUTABLES=bootzldr.exe vmoskrnl.exe OVMF.fd
 
 TARGETS=$(REM_FLAG) $(OBJ) $(BIN) $(IMG) $(IMG_2) $(EXECUTABLES)
 

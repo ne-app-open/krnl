@@ -83,10 +83,11 @@ class BootTextWriter final {
   BootTextWriter(const BootTextWriter&)            = default;
 };
 
-Ne::Kernel::SizeT BCopyMem(CharacterTypeUTF16* dest, CharacterTypeUTF16* src, const Ne::Kernel::SizeT len);
+Ne::Kernel::SizeT BCopyMem(CharacterTypeUTF16* dest, CharacterTypeUTF16* src,
+                           const Ne::Kernel::SizeT len);
 
 Ne::Kernel::SizeT BSetMem(CharacterTypeASCII* src, const CharacterTypeASCII byte,
-                      const Ne::Kernel::SizeT len);
+                          const Ne::Kernel::SizeT len);
 
 /// String length functions.
 
@@ -95,7 +96,7 @@ Ne::Kernel::SizeT BStrLen(const CharacterTypeUTF16* ptr);
 
 /// @brief set memory with custom value.
 Ne::Kernel::SizeT BSetMem(CharacterTypeUTF16* src, const CharacterTypeUTF16 byte,
-                      const Ne::Kernel::SizeT len);
+                          const Ne::Kernel::SizeT len);
 
 /**
  * @brief BootKit File Reader class
@@ -234,12 +235,16 @@ class BDiskFormatFactory final {
 
     BootTextWriter writer;
 
-    if (StrCmp(gpt_part->Signature, kMagicGPT) == 0) {
+    constexpr const SInt32 EFI_PARTITION_COUNT_MIN = 1;
+
+    if (StrCmp(gpt_part->Signature, kMagicGPT) == 0 &&
+        gpt_part->NumPartitionEntries >= EFI_PARTITION_COUNT_MIN &&
+        gpt_part->HeaderSize == sizeof(struct GPT_PARTITION_TABLE)) {
       writer.Write("BootZ: GPT Partition found.\r");
       return true;
     }
 
-    writer.Write("BootZ: No Partition found.\r");
+    writer.Write("BootZ: No GPT Partition found.\r");
 
     return false;
 #endif

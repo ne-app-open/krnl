@@ -27,7 +27,7 @@ build/
 *.pdf
 *.aux
 
-vmkrnl.exe
+vmoskrnl.exe
 bootzldr.exe
 private/minloader/src/root/ne_kernel
 

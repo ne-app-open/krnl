@@ -11,9 +11,9 @@ BEGIN
       VALUE "CompanyName", "Ne.app"
 	    VALUE "FileDescription", "Ne.app Virtual Memory OS Kernel"
       VALUE "FileVersion", KERNEL_VERSION
-	    VALUE "InternalName", "vmkernel"
+	    VALUE "InternalName", "vmoskrnl"
       VALUE "LegalCopyright", "(c) 2024-2026 Ne.app. Licensed under the Apache 2.0 license."
-      VALUE "OriginalFilename", "vmkrnl.exe"
+      VALUE "OriginalFilename", "vmoskrnl.exe"
       VALUE "ProductName", "minkernel"
       VALUE "ProductVersion", KERNEL_VERSION
     END

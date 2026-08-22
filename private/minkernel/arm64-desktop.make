@@ -23,7 +23,7 @@ LDFLAGS		= -subsystem:efi_application -entry:hal_init_platform /nodefaultlib
 LDOBJ		= obj/*.obj
 
 # This file is the Kernel, responsible of task management and memory.
-KERNEL_IMG		= vmkrnl.exe
+KERNEL_IMG		= vmoskrnl.exe
 
 .PHONY: error
 error:

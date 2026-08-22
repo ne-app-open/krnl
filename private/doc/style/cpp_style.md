@@ -6,7 +6,7 @@ NeKernel uses the Google C++ Style. But applied to low-level systems. We use C++
 
 ## No Exceptions, Never.
 
-NeKernel bans the usage of exceptions in vmkrnl, bootzldr, etc.
+NeKernel bans the usage of exceptions in vmoskrnl, bootzldr, etc.
 Unless it is a program space and not to be deemed performance dependent.
 
 ## Templates, Containers, and ZOA over C with Classes.

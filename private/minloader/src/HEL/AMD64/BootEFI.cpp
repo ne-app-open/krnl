@@ -254,7 +254,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
     }
   }
 
-  WideChar kernel_path[256U] = L"vmkrnl.exe";
+  WideChar kernel_path[256U] = L"vmoskrnl.exe";
   UIntPtr  kernel_path_sz    = sizeof(kernel_path);
 
   /// access attributes (in order)

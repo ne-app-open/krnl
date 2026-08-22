@@ -139,7 +139,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
   ST->RuntimeServices->SetVariable(L"/props/recover_mode", kEfiGlobalNamespaceVarGUID, 0, 0,
                                    nullptr);
 
-  Boot::BootFileReader reader_kernel(L"vmkrnl.exe", image_handle);
+  Boot::BootFileReader reader_kernel(L"vmoskrnl.exe", image_handle);
 
   reader_kernel.ReadAll(0);
 

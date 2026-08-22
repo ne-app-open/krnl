@@ -28,12 +28,18 @@ STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
     (Void)(kout << "hal_real_init: Spawned the NeSystem Driver Host.\r");
   } else {
     (Void)(kout << "hal_real_init: warning: Driver host did not spawn.\r");
-    ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Kernel Driver Init in HAL.");
+    ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Driver Host Init in HAL.");
   }
 
-  /// Implement additional driver runtime code code here ///
+  PE32Loader ldr_shms("/system/shmshost.dll");
 
-  /// Implement additional driver runtime code code here ///
+  if (ldr_shms.IsLoaded() && rtl_create_user_process(
+                            ldr_shms, UserProcess::ExecutableKind::kExecutableDylibKind) != kCPSInvalidPID) {
+    (Void)(kout << "hal_real_init: Spawned the NeSystem Shims Host.\r");
+  } else {
+    (Void)(kout << "hal_real_init: warning: Shims host did not spawn.\r");
+    ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Shims DLL Host Init in HAL.");
+  }
 }
 
 EXTERN_C Ne::Kernel::VoidPtr kInterruptVectorTable[];

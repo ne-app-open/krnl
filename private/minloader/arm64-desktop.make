@@ -48,7 +48,7 @@ FLAG_GNU=-fshort-wchar -c -ffreestanding -MMD -mno-red-zone -D__NE_ARM64__ -fno-
 				-std=c++20 -DBOOTZ_EPM_SUPPORT -D__nekernel_allow_non_nekernel_pe -DBOOTZ_USE_FB -D__FSKIT_USE_NEFS__ -D__BOOTZ_STANDALONE__ -D__NEKERNEL__ -D__BOOTZ__ -D__HAVE_NE_API__ -D__NE__ -I../ -I../minkernel
 
 BOOT_LOADER=bootzldr.exe
-KERNEL_IMG=vmkrnl.exe
+KERNEL_IMG=vmoskrnl.exe
 SYSCHK=chk.efi
 STARTUP=startup.efi
 HAL=hal.arm64.dll
@@ -97,7 +97,7 @@ efi:
 	$(HTTP_GET) https://retrage.github.io/edk2-nightly/bin/DEBUGAARCH64_QEMU_EFI.fd -O OVMF.fd
 
 BINS=*.bin
-EXECUTABLES=bootzldr.exe vmkrnl.exe OVMF.fd
+EXECUTABLES=bootzldr.exe vmoskrnl.exe OVMF.fd
 
 TARGETS=$(REM_FLAG) $(OBJ) $(BIN) $(IMG) $(IMG_2) $(EXECUTABLES)
 
