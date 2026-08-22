@@ -34,7 +34,7 @@ SwapDiskHdrPtr IDiskSwap::Read(const UIntPtr offset, SizeT data_len) {
   FileStream file(kSwapPageFilePath, kRestrictRB);
   ErrorOrAny blob = file.Read(offset, sizeof(SwapDiskHdr) + data_len);
 
-  if (blob.HasError() ||
+  if (blob.HasError() || !blob.Leak().Leak() ||
       (static_cast<SwapDiskHdr*>(blob.Leak().Leak()))->fMagic != kSwapDiskHeaderMagic) {
     if (!blob.HasError()) mm_free_ptr(blob.Leak().Leak());
     return nullptr;
