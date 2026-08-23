@@ -10,10 +10,14 @@
     ],
     "sources_path": [],
     "output_name": "./dist/ping.exe",
+    "compiler_flags": [
+        "-L../../../private/libSystem",
+        "-lSystemKit"
+    ],
     "cpp_macros": [
-        "kSampleFWVersion=0x0100",
-        "kSampleFWVersionHighest=0x0100",
-        "kSampleFWVersionLowest=0x0100",
+        "kPingVersion=0x0100",
+        "kPingVersionHighest=0x0100",
+        "kPingVersionLowest=0x0100",
         "__NE_SDK__"
     ]
 }

@@ -9,6 +9,10 @@
         "./"
     ],
     "sources_path": [],
+    "compiler_flags": [
+        "-L../../../private/libSystem",
+        "-lSystemKit"
+    ],
     "output_name": "./dist/manual.exe",
     "cpp_macros": [
         "kManVersion=0x0100",
