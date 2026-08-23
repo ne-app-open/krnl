@@ -63,7 +63,7 @@ HardwareTimer::HardwareTimer(UInt64 ms) : fWaitFor(ms) {
 }
 
 HardwareTimer::~HardwareTimer() {
-  fDigitalTimer = nullptr;
+  if (fDigitalTimer) fDigitalTimer = nullptr;
   fWaitFor      = 0;
 }
 
@@ -75,12 +75,14 @@ BOOL HardwareTimer::Wait() {
   if (fWaitFor < 1) return NO;
   if (fWaitFor > 1'000'000) return NO;  // max 1000s = 16 minutes
 
+  volatile UInt64* timer = (volatile UInt64*) (fDigitalTimer + kHPETCounterRegValue);
+
+  if (!timer) return NO;
+
   UInt64 hpet_cap              = *((volatile UInt64*) (fDigitalTimer));
   UInt64 femtoseconds_per_tick = (hpet_cap >> 32);
 
   if (femtoseconds_per_tick == 0) return NO;
-
-  volatile UInt64* timer = (volatile UInt64*) (fDigitalTimer + kHPETCounterRegValue);
 
   UInt64 now = *timer;
 

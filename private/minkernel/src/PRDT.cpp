@@ -14,7 +14,9 @@ namespace Ne::Kernel {
 /// @param prd PRD reference.
 /// @note This doesnt construct a valid, please fill it by yourself.
 /***********************************************************************************/
-void sk_construct_prdt(Ref<PRDT>& prd) {
+Void sk_construct_prdt(Ref<PRDT>& prd) {
+  if (!prd.Leak().fSectorCount) return;
+  
   prd.Leak().fPhysAddress = 0x0;
   prd.Leak().fSectorCount = 0x0;
   prd.Leak().fEndBit      = 0x0;

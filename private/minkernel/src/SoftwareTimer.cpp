@@ -18,7 +18,7 @@ SoftwareTimer::SoftwareTimer(Int64 seconds) : fWaitFor(seconds) {
 }
 
 SoftwareTimer::~SoftwareTimer() {
-  delete fDigitalTimer;
+  if (fDigitalTimer) delete fDigitalTimer;
   fDigitalTimer = nullptr;
 
   fWaitFor = 0;

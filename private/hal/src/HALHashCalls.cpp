@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026, Amlal El Mahrouss (amlal@nekernel.org)
+// Licensed under the Apache License, Version 2.0 (see LICENSE file)
+// Official repository: https://github.com/ne-app-eu/krnl
+
+// For FNV hashing.
+#include <hal/HAL/HAL.h>
+
+EXTERN_C UInt64 hali_hash_fnv64(const Char* path) {
+  if (!path || *path == 0) return 0;
+
+  const UInt64 kFNVSeed  = 0xcbf29ce484222325ULL;
+  const UInt64 kFNVPrime = 0x100000001b3ULL;
+
+  UInt64 hash = kFNVSeed;
+
+  while (*path) {
+    hash ^= (Char) (*path++);
+    hash *= kFNVPrime;
+  }
+
+  return hash;
+}
