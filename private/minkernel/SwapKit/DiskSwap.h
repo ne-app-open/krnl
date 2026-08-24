@@ -55,7 +55,7 @@ class IDiskSwap final {
 /// @param fVirtualAddress Virtual address pointed by data.
 /// @param fBlobSz Blob's size.
 /// @param fBlob Data blob.
-typedef struct SwapDiskHdr {
+typedef struct SwapDiskHdr final {
   UInt32  fMagic;
   SizeT   fHeaderSz;
   UInt64  fTeamID;
