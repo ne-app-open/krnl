@@ -15,7 +15,8 @@ STATIC Void bootnet_read_ip_packet(BOOTNET_INTERNET_HEADER   inet,
                                    BOOTNET_INTERNET_HEADER** inet_out);
 
 EXTERN_C Int32 BootNetModuleMain(Ne::Kernel::HEL::BootInfoHeader* handover) {
-  ::fw_init_efi(static_cast<EfiSystemTable*>(handover->f_FirmwareCustomTables[Ne::Kernel::HEL::kHandoverTableST]));
+  ::fw_init_efi(static_cast<EfiSystemTable*>(
+      handover->f_FirmwareCustomTables[Ne::Kernel::HEL::kHandoverTableST]));
 
   Boot::BootTextWriter writer;
 
@@ -40,8 +41,8 @@ EXTERN_C Int32 BootNetModuleMain(Ne::Kernel::HEL::BootInfoHeader* handover) {
     return kEfiFail;
   }
 
-  if (inet_out->NB1 != 'O' || inet_out->NB1 != 'N' || inet_out->NB1 != 'E' ||
-      inet_out->NB1 != 'T') {
+  if (inet_out->NB1 != kBootNetINetMagic[0] || inet_out->NB2 != kBootNetINetMagic[1] ||
+      inet_out->NB3 != kBootNetINetMagic[2] || inet_out->NB4 != kBootNetINetMagic[3]) {
     writer.Write("Net: Not a packet, aborting.\r");
     return kEfiFail;
   }
