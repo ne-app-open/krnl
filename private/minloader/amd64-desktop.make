@@ -101,7 +101,7 @@ all: compile-amd64
 	$(COPY) ../libSystem/$(SCIKIT) src/root/$(SCIKIT)
 	$(COPY) ../libPOSIX/$(POSIXWRAPPER) src/root/$(POSIXWRAPPER)
 	# $(COPY) ../libPThread/$(PTHREAD) src/root/$(PTHREAD)
-	# $(COPY) ../hal/$(HAL) src/root/$(HAL)
+	$(COPY) ../hal/$(HAL) src/root/$(HAL)
 	$(COPY) src/$(BOOTLOADER) src/root/$(BOOTLOADER)
 	$(COPY) ../libDDK/$(DDK) src/root/$(DDK)
 	$(COPY) ../mindetect/$(MINDETECT) src/root/$(MINDETECT)

@@ -37,14 +37,14 @@ class IDiskSwap final {
   /// @param data the data packet.
   /// @return Number of bytes written to swap.
   /***********************************************************************************/
-  _Output Int64 Write(SwapDiskHdr* data);
+  _Output Int64 Write(SwapDiskHdr* data, const Char* name = kSwapPageFilePath);
 
   /***********************************************************************************/
   /// @brief Read memory chunk from disk.
   /// @param data the data packet length.
   /// @return Whether the swap was fetched to disk, or not.
   /***********************************************************************************/
-  _Output SwapDiskHdr* Read(const UIntPtr offset, SizeT data_len);
+  _Output SwapDiskHdr* Read(const UIntPtr& offset, SizeT data_len, const Char* name = kSwapPageFilePath);
 };
 
 /// @brief Swap disk header, containing information about the held virtual memory.
