@@ -139,7 +139,7 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
   ST->RuntimeServices->SetVariable(L"/props/recover_mode", kEfiGlobalNamespaceVarGUID, 0, 0,
                                    nullptr);
 
-  Boot::BootFileReader reader_hal(L"HAL.dll", image_handle);
+  Boot::BootFileReader reader_hal(L"hal.arm64.dll", image_handle);
   reader_hal.ReadAll(0);
 
   if (reader_hal.Blob()) {
