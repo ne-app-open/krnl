@@ -315,6 +315,14 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
     writer.Write("BootZ: No libSystem.dll, booting without a user process.\r");
   }
 
+  Boot::BootFileReader reader_hal(L"HAL.dll", image_handle);
+  reader_hal.ReadAll(0);
+
+  if (reader_hal.Blob()) {
+    handover_hdr->f_HALImage = reader_hal.Blob();
+    handover_hdr->f_HALSz = reader_hal.Size();
+  }
+
   Boot::BootFileReader reader_osdetect(L"mindetect.efi", image_handle);
   reader_osdetect.ReadAll(0);
 
