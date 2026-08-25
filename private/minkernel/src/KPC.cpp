@@ -20,7 +20,7 @@ Boolean err_bug_check_raise(Void) {
 
   if (!mm_is_valid_ptr(ptr)) goto bug_check_fail;
 
-  delete[] ptr;
+  if (ptr) delete[] ptr;
 
   return Yes;
 

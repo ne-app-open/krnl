@@ -19,6 +19,9 @@ Int64 IDiskSwap::Write(SwapDiskHdrPtr data, const Char* name) {
   if (!name || *name == 0) return 0LL;
 
   FileStream file(name, kRestrictWRB);
+
+  if (!file.Leak()) return 0LL;
+
   Ref<Int64> ret = file.Write(data->fOffset, data, sizeof(SwapDiskHdr) + data->fBlobSz);
 
   return ret.Leak();
@@ -34,6 +37,9 @@ SwapDiskHdrPtr IDiskSwap::Read(const UIntPtr& offset, SizeT data_len, const Char
   if (!name || *name == 0) return nullptr;
 
   FileStream file(name, kRestrictRB);
+
+  if (!file.Leak()) return nullptr;
+
   ErrorOrAny blob = file.Read(offset, sizeof(SwapDiskHdr) + data_len);
 
   if (blob.HasError() || !blob.Leak().Leak() ||
