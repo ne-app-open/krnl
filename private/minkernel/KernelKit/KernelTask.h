@@ -43,6 +43,8 @@ class KernelTaskHelper final {
  public:
   STATIC Bool Start(KernelTask& task_ref, const KID& kid);
   STATIC Bool CanBeStarted(const KernelTask& task_ref);
+  STATIC Bool IsValid(KernelTask& task_ref);
+  
 };
 
 }  // namespace Ne::Kernel

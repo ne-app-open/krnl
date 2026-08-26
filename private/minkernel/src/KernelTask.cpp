@@ -54,4 +54,9 @@ Bool KernelTaskHelper::CanBeStarted(const KernelTask& task) {
   return task.StackSize > 0 && task.Image.HasCode() && task.Image.HasImage();
 }
 
+Bool KernelTaskHelper::IsValid(KernelTask& task_ref) {
+  if (task_ref.StackSize == 0) return NO;
+  return task_ref.Image.HasImage() && task_ref.Image.HasCode();
+}
+
 }  // namespace Ne::Kernel
