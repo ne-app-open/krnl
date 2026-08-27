@@ -93,12 +93,13 @@ class User final {
 
   /// @brief Returns whether the user is an adult or not. 
   Bool IsAdult();
+  Void Adult(const Bool& adult);
 
  private:
   UserRingKind mUserRing{UserRingKind::kRingStdUser};
   Char         mUserName[kMaxUserNameLen] = {0};
   UInt64       mUserFNV{0UL};
-  Bool         mUserIsAdult{NO};
+  Bool         mUserIsAdult{YES};
 
 };
 

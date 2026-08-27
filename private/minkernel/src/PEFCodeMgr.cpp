@@ -7,7 +7,7 @@
 #include <KernelKit/DebugOutput.h>
 #include <KernelKit/HeapMgr.h>
 #include <KernelKit/PEFCodeMgr.h>
-#include <KernelKit/PhysicalMemory.h>
+#include <HALKit/Generic/PhysicalMemory.h>
 #include <KernelKit/ProcessScheduler.h>
 #include <NeKit/Config.h>
 #include <NeKit/KString.h>
@@ -48,6 +48,8 @@ namespace Detail {
   }
   /// @brief Compare a container magic against a wanted one.
   STATIC Bool pef_magic_eq(const Char* magic, const Char* want) {
+    if (!magic || !want) return NO;
+
     for (SizeT i{}; i < kPefMagicLen - 1; ++i) {
       if (magic[i] != want[i]) return NO;
     }
@@ -57,6 +59,8 @@ namespace Detail {
 
   /// @brief Compare a fixed size, possibly unterminated, name field.
   STATIC Bool pef_name_eq(const Char* field, const Char* want) {
+    if (!field || !want) return NO;
+
     auto field_len = rt_string_len(field, kPefNameLen);
 
     if (field_len >= kPefNameLen) return NO;
@@ -74,6 +78,8 @@ namespace Detail {
 
   /// @brief Build the section name for a symbol, mangling spaces.
   STATIC Bool pef_make_name(Char* dst, const SizeT dst_sz, const Int32 kind, const Char* name) {
+    if (!dst || !dst_sz || !name || kind == kPefInvalid) return NO;
+    
     const Char* prefix = nullptr;
 
     switch (kind) {
@@ -164,6 +170,8 @@ namespace Detail {
 
   /// @brief Unmap n pages from base, handing the frames back.
   STATIC Void ldr_unmap_pages(UIntPtr base, SizeT n) {
+    if (!n) return;
+
     while (n-- > 0) {
       HAL::pmmi_free_frame(HAL::mm_unmap_page((VoidPtr) (base + (n * kPageSize))));
     }
@@ -171,6 +179,8 @@ namespace Detail {
 
   /// @brief Instantiate a section at its virtual address, backed by frames.
   STATIC ErrorOr<VoidPtr> pef_load_section(const PEFCommandHeader& hdr, const VoidPtr src) {
+    if (!src) return ErrorOr<VoidPtr>{kErrorInvalidData};
+    
     SizeT pages = hdr.VMSize / kPageSize + ((hdr.VMSize % kPageSize) ? 1 : 0);
 
     for (SizeT i{}; i < pages; ++i) {

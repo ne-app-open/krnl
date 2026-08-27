@@ -6,7 +6,7 @@
 #include <HALKit/AMD64/Paging.h>
 #include <HALKit/AMD64/Processor.h>
 #include <KernelKit/DebugOutput.h>
-#include <KernelKit/PhysicalMemory.h>
+#include <HALKit/Generic/PhysicalMemory.h>
 
 namespace Ne::Kernel::HAL {
 namespace Detail {

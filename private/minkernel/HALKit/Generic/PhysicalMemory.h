@@ -13,6 +13,10 @@
 #include <HALKit/AMD64/Paging.h>
 #endif  // __NE_AMD64__
 
+#ifdef __NE_ARM64__
+#include <HALKit/ARM64/Paging.h>
+#endif  // __NE_AMD64__
+
 namespace Ne::Kernel::HAL {
 
 /// @brief Hand a physical region to the frame allocator.

@@ -4,7 +4,7 @@
 // Official repository: https://github.com/ne-app-eu/krnl
 
 #include <KernelKit/DebugOutput.h>
-#include <KernelKit/PhysicalMemory.h>
+#include <HALKit/Generic/PhysicalMemory.h>
 #include <NeKit/KernelPanic.h>
 #include <NeKit/Utils.h>
 

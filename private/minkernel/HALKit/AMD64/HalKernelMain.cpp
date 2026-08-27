@@ -10,7 +10,7 @@
 #include <KernelKit/CodeMgr.h>
 #include <KernelKit/HardwareThreadScheduler.h>
 #include <KernelKit/PEFCodeMgr.h>
-#include <KernelKit/PhysicalMemory.h>
+#include <HALKit/Generic/PhysicalMemory.h>
 #include <KernelKit/ProcessScheduler.h>
 #include <KernelKit/Timer.h>
 #include <NetworkKit/IPC.h>

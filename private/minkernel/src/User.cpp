@@ -6,7 +6,7 @@
 #include <KernelKit/FileMgr.h>
 #include <KernelKit/HeapMgr.h>
 #include <KernelKit/KPC.h>
-#include <KernelKit/PhysicalMemory.h>
+#include <HALKit/Generic/PhysicalMemory.h>
 #include <KernelKit/ThreadLocalStorage.h>
 #include <KernelKit/User.h>
 #include <NeKit/KString.h>
@@ -76,8 +76,19 @@ User::User(const UserRingKind& ring_kind, const Char* user_name)
 ////////////////////////////////////////////////////////////
 User::~User() = default;
 
+
+////////////////////////////////////////////////////////////
+/// @brief Is the user an adult?
+////////////////////////////////////////////////////////////
 Bool User::IsAdult() {
-  return mUserIsAdult;
+  return this->mUserIsAdult;
+}
+
+////////////////////////////////////////////////////////////
+/// @brief Set whether the user is an adult.
+////////////////////////////////////////////////////////////
+Void User::Adult(const Bool& adult) {
+  this->mUserIsAdult = adult;
 }
 
 Bool User::Save(const UserPublicKey password) {

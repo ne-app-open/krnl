@@ -7,7 +7,7 @@
 #include <KernelKit/DebugOutput.h>
 #include <KernelKit/HeapMgr.h>
 #include <KernelKit/PE32CodeMgr.h>
-#include <KernelKit/PhysicalMemory.h>
+#include <HALKit/Generic/PhysicalMemory.h>
 #include <KernelKit/ProcessScheduler.h>
 #include <NeKit/Config.h>
 #include <NeKit/KString.h>
@@ -250,9 +250,9 @@ ErrorOr<VoidPtr> PE32Loader::FindSymbol(const Char* name, Int32 kind) {
 /***********************************************************************************/
 
 ErrorOr<VoidPtr> PE32Loader::LoadImage() {
-  if (fImage) return ErrorOr<VoidPtr>{fImage};
+  if (this->fImage) return ErrorOr<VoidPtr>{fImage};
 
-  if (fBad || !fCachedBlob.Leak().Leak() || !fCachedBlobSz)
+  if (this->fBad || !this->fCachedBlob.Leak().Leak() || !fCachedBlobSz)
     return ErrorOr<VoidPtr>{kErrorInvalidData};
 
   auto blob   = reinterpret_cast<Char*>(fCachedBlob.Leak().Leak());

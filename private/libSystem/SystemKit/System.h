@@ -50,6 +50,10 @@ typedef Ref SemaphoreRef;
 /// @return the proc pointer.
 IMPORT_C VoidPtr LdrGetDylibSymbolFromHandle(_Input const Char* symbol, _Input Ref dll_handle);
 
+#ifndef LdrGetDylibSymbol
+#define LdrGetDylibSymbol LdrGetDylibSymbolFromHandle
+#endif
+
 /// @brief Open Dylib handle.
 /// @param path dll path.
 /// @param drv driver letter.
