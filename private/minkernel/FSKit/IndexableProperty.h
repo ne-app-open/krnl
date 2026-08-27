@@ -41,9 +41,9 @@ namespace Indexer {
     Index& Leak();
 
    public:
-    Void   AddFlag(UInt16 flag);
-    Void   RemoveFlag(UInt16 flag);
-    UInt16 HasFlag(UInt16 flag);
+    Void   AddFlag(const UInt16& flag);
+    Void   RemoveFlag(const UInt16& flag);
+    UInt16 HasFlag(const UInt16& flag);
 
    private:
     Index  fIndex;

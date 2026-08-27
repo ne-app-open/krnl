@@ -171,6 +171,7 @@ Void user_init_std(const Bool& recovery) {
 
   kHostUser = nullptr;
 
+  (Void)(kout << "user_init_std: " << kRootUser->Name() << kendl);
   (Void)(kout << "user_init_std: " << kCurrentUser->Name() << kendl);
 }
 

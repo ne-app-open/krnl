@@ -23,15 +23,15 @@ namespace Indexer {
     return fIndex;
   }
 
-  Void IndexableProperty::AddFlag(UInt16 flag) {
+  Void IndexableProperty::AddFlag(const UInt16& flag) {
     fFlags |= flag;
   }
 
-  Void IndexableProperty::RemoveFlag(UInt16 flag) {
+  Void IndexableProperty::RemoveFlag(const UInt16& flag) {
     fFlags &= ~(flag);
   }
 
-  UInt16 IndexableProperty::HasFlag(UInt16 flag) {
+  UInt16 IndexableProperty::HasFlag(const UInt16& flag) {
     return fFlags & flag;
   }
 

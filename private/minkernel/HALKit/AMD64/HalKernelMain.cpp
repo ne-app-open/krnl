@@ -271,6 +271,11 @@ EXTERN_C Ne::Kernel::Void hal_real_init(Ne::Kernel::Void) {
 
   ke_install_syscall("ke_ping", ke_ping);
 
+  STATIC Char* kCanary = new Char[512];
+  if (!kCanary) return;
+  
+  rt_set_memory(kCanary, 0xDE, 512); 
+
 #ifdef __FSKIT_INCLUDES_OPENHEFS__
   OpenHeFS::fs_init_openhefs();
   HeFileSystemMgr::Mount(new HeFileSystemMgr());

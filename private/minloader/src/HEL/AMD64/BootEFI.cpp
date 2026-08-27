@@ -103,7 +103,7 @@ STATIC Void boot_scan_memory(HEL::BootInfoHeader* handover_hdr, UIntPtr* out_map
     Boot::Stop();
   }
 
-  handover_hdr->f_BitMapStart = first_free_page;
+  handover_hdr->f_BitMapStart = (VoidPtr)((UIntPtr)first_free_page + mib_cast(8));
   handover_hdr->f_BitMapSize  = free_pages * 4096;
 
   if (out_map_key) *out_map_key = map_key;

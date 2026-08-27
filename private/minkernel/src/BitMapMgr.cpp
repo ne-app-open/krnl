@@ -86,24 +86,22 @@ namespace HAL {
         if (!size) return nullptr;
         if (size > kBitMapMaxSz) return nullptr;
 
-        VoidPtr base = reinterpret_cast<VoidPtr>(base_ptr);
+        VoidPtr base = reinterpret_cast<VoidPtr>((UIntPtr)base_ptr + kBitMapCursor);
 
         STATIC SizeT biggest{0UL};
 
-        auto limit = reinterpret_cast<UIntPtr>(kKernelBitMpStart) + kKernelBitMpSize;
-
         while (YES) {
-          if ((reinterpret_cast<UIntPtr>(base) + size + pad) > limit) return nullptr;
+          volatile UIntPtr* ptr_bit_set = reinterpret_cast<volatile UIntPtr*>(base);
 
-          UIntPtr* ptr_bit_set = reinterpret_cast<UIntPtr*>(base);
-
-          if (ptr_bit_set[kBitMapMagIdx] == kBitMapMagic &&
-              ptr_bit_set[kBitMapSizeIdx] == (size + pad)) {
+          if (ptr_bit_set[kBitMapMagIdx] == kBitMapMagic) {
             if (ptr_bit_set[kBitMapUsedIdx] == No) {
+              this->GetBitMapStatus(ptr_bit_set);
+
               ptr_bit_set[kBitMapSizeIdx] = size + pad;
               ptr_bit_set[kBitMapUsedIdx] = Yes;
 
-              this->GetBitMapStatus(ptr_bit_set);
+              NE_UNUSED(wr);
+              NE_UNUSED(user);
 
               if (biggest < (size + pad)) biggest = size + pad;
               kBitMapCursor += size + pad + kAlign;
@@ -111,19 +109,20 @@ namespace HAL {
               return (VoidPtr) (ptr_bit_set + kBitMapSz);
             }
           } else if (ptr_bit_set[kBitMapMagIdx] != kBitMapMagic) {
-            ptr_bit_set[kBitMapMagIdx]  = kBitMapMagic;
-            ptr_bit_set[kBitMapSizeIdx] = (size + pad);
-            ptr_bit_set[kBitMapUsedIdx] = Yes;
+            if (ptr_bit_set[kBitMapUsedIdx] == No) {
+              ptr_bit_set[kBitMapMagIdx]  = kBitMapMagic;
+              ptr_bit_set[kBitMapSizeIdx] = (size + pad);
+              ptr_bit_set[kBitMapUsedIdx] = Yes;
+              this->GetBitMapStatus(ptr_bit_set);
 
-            this->GetBitMapStatus(ptr_bit_set);
+              NE_UNUSED(wr);
+              NE_UNUSED(user);
 
-            NE_UNUSED(wr);
-            NE_UNUSED(user);
+              if (biggest < (size + pad)) biggest = (size + pad);
+              kBitMapCursor += size + pad + kAlign;
 
-            if (biggest < (size + pad)) biggest = (size + pad);
-            kBitMapCursor += size + pad + kAlign;
-
-            return (VoidPtr) (ptr_bit_set + kBitMapSz);
+              return (VoidPtr) (ptr_bit_set + kBitMapSz);
+            }
           }
 
           UIntPtr raw_base = reinterpret_cast<UIntPtr>(base);
@@ -132,14 +131,14 @@ namespace HAL {
                                ? (size + pad)
                                : ptr_bit_set[kBitMapSizeIdx];
 
-          base = reinterpret_cast<VoidPtr>(raw_base + offset);
+          base = reinterpret_cast<VoidPtr>(raw_base + offset + kAlign);
         }
 
         return nullptr;
       }
 
       /// @brief Print Bitmap status
-      auto GetBitMapStatus(UIntPtr* ptr_bit_set) -> Void {
+      auto GetBitMapStatus(volatile UIntPtr* ptr_bit_set) -> Void {
         (Void)(kout << "Magic: " << hex_number(ptr_bit_set[kBitMapMagIdx]) << kendl);
         (Void)(kout << "Is Allocated? " << (ptr_bit_set[kBitMapUsedIdx] ? "YES" : "NO") << kendl);
         (Void)(kout << "Size of BitMap (B): " << number(ptr_bit_set[kBitMapSizeIdx]) << kendl);
