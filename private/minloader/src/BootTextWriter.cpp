@@ -140,6 +140,8 @@ Boot::BootTextWriter& Boot::BootTextWriter::_Write(const UInt64& x) {
 
   constexpr const char kNumberList[] = "0123456789ABCDEF";
 
+  if (h > 16) return *this;
+
   this->WriteCharacter(kNumberList[h]);
 #else
   NE_UNUSED(x);

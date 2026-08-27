@@ -14,6 +14,7 @@
 
 namespace Ne::Kernel {
 
+// Devices forward declarations.
 class TerminalDevice;
 class DTraceDevice;
 class NeTraceDevice;

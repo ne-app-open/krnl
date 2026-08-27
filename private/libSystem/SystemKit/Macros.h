@@ -13,10 +13,12 @@
 
 #include <hint/CompilerHint.h>
 
+#ifndef ATTRIBUTE
 #define ATTRIBUTE(X) __attribute__((X))
+#endif
 
 #define __THREAD_SAFE ATTRIBUTE(thread_safe)
-#define __THREAD_UNSAFE
+#define __THREAD_UNSAFE ATTRIBUTE(thread_unsafe)
 
 #define IMPORT_CXX extern "C++"
 #define IMPORT_C extern "C"

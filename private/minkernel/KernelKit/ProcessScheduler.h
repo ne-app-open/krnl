@@ -19,8 +19,11 @@ inline UserProcessTeam kHighUserTeam;
 inline UserProcessTeam kMidUserTeam;
 inline UserProcessTeam kRTUserTeam;
 
+inline UserProcessTeam kDLLTeam;
+
 /// @brief Remote processes.
 inline UserProcessTeam kServicesTeam;
+inline UserProcessTeam kMsgBlkTeam;
 inline UserProcessTeam kNetworkTeam;
 
 }  // namespace Ne::Kernel

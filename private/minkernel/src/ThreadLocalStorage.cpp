@@ -47,5 +47,7 @@ EXTERN_C Bool tls_check_tib(Ne::Kernel::VoidPtr tib_ptr) {
   }
 
   THREAD_INFORMATION_BLOCK* tib = static_cast<THREAD_INFORMATION_BLOCK*>(tib_ptr);
+  if (!tib) return NO;
+
   return Ne::Kernel::tlsi_check_tib(tib);
 }
