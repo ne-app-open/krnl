@@ -17,6 +17,7 @@
 #define kBitMapMagIdx (0U)
 #define kBitMapSizeIdx (1U)
 #define kBitMapUsedIdx (2U)
+#define kBitMapSz (3U)
 
 ///! @author Amlal El Mahrouss (amlal@nekernel.org)
 
@@ -38,7 +39,7 @@ namespace HAL {
 
         UIntPtr* ptr_bit_set = reinterpret_cast<UIntPtr*>(page_ptr);
 
-        if (!ptr_bit_set[kBitMapMagIdx] || ptr_bit_set[kBitMapMagIdx] != kBitMapMagic) return No;
+        if (ptr_bit_set[kBitMapMagIdx] != kBitMapMagic) return No;
 
         return Yes;
       }
@@ -46,10 +47,9 @@ namespace HAL {
       auto FreeBitMap(VoidPtr page_ptr) -> Bool {
         if (this->IsBitMap(page_ptr) == No) return No;
 
-        UIntPtr* ptr_bit_set = reinterpret_cast<UIntPtr*>(page_ptr);
+        UIntPtr* ptr_bit_set = reinterpret_cast<UIntPtr*>(page_ptr) - kBitMapSz;
 
-        if (!page_ptr) return No;
-
+        if (!ptr_bit_set) return No;
         if (ptr_bit_set[kBitMapMagIdx] != kBitMapMagic) return No;
 
         this->GetBitMapStatus(ptr_bit_set);
@@ -106,9 +106,9 @@ namespace HAL {
               this->GetBitMapStatus(ptr_bit_set);
 
               if (biggest < (size + pad)) biggest = size + pad;
-              kBitMapCursor += size + pad;
+              kBitMapCursor += size + pad + kAlign;
 
-              return (VoidPtr) ptr_bit_set;
+              return (VoidPtr) (ptr_bit_set + kBitMapSz);
             }
           } else if (ptr_bit_set[kBitMapMagIdx] != kBitMapMagic) {
             ptr_bit_set[kBitMapMagIdx]  = kBitMapMagic;
@@ -121,9 +121,9 @@ namespace HAL {
             NE_UNUSED(user);
 
             if (biggest < (size + pad)) biggest = (size + pad);
-            kBitMapCursor += size + pad;
+            kBitMapCursor += size + pad + kAlign;
 
-            return (VoidPtr) ptr_bit_set;
+            return (VoidPtr) (ptr_bit_set + kBitMapSz);
           }
 
           UIntPtr raw_base = reinterpret_cast<UIntPtr>(base);

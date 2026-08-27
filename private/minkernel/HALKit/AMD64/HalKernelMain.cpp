@@ -7,10 +7,10 @@
 #include <CFKit/Property.h>
 #include <FirmwareKit/EFI/API.h>
 #include <FirmwareKit/EFI/EFI.h>
+#include <HALKit/Generic/PhysicalMemory.h>
 #include <KernelKit/CodeMgr.h>
 #include <KernelKit/HardwareThreadScheduler.h>
 #include <KernelKit/PEFCodeMgr.h>
-#include <HALKit/Generic/PhysicalMemory.h>
 #include <KernelKit/ProcessScheduler.h>
 #include <KernelKit/Timer.h>
 #include <NetworkKit/IPC.h>
@@ -33,8 +33,9 @@ STATIC Ne::Kernel::Void kei_init_drivers(Ne::Kernel::Void) {
 
   PE32Loader ldr_shms("/system/shmshost.dll");
 
-  if (ldr_shms.IsLoaded() && rtl_create_user_process(
-                            ldr_shms, UserProcess::ExecutableKind::kExecutableDylibKind) != kCPSInvalidPID) {
+  if (ldr_shms.IsLoaded() &&
+      rtl_create_user_process(ldr_shms, UserProcess::ExecutableKind::kExecutableDylibKind) !=
+          kCPSInvalidPID) {
     (Void)(kout << "hal_real_init: Spawned the NeSystem Shims Host.\r");
   } else {
     (Void)(kout << "hal_real_init: warning: Shims host did not spawn.\r");
@@ -306,7 +307,8 @@ EXTERN_C Ne::Kernel::Void hal_real_init(Ne::Kernel::Void) {
 
   /// @note SwitchTeam overwrites the whole team, switching again here would
   /// discard the process we just spawned.
-
-  while (YES);
+  
+  ke_stop(RUNTIME_CHECK_BOOTSTRAP, "Bug-Check failed at Kernel Main in HAL.");
+  while (YES) rt_cli();
 }
 #endif  // ifndef __NE_MODULAR_KERNEL_COMPONENTS__
