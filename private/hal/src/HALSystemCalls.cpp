@@ -9,7 +9,7 @@
 
 using Ne::Kernel::HAL::kRegisteredSystemCalls;
 
-EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type proc, const UInt64& level, const SInt64& hash) {
+EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type proc, const UInt64& level, const UInt64& hash) {
   if (!hash) return -1;
 
   STATIC BOOL kLocked = NO;
@@ -18,25 +18,22 @@ EXTERN_C SInt32 hali_add_entry(HAL::hal_proc_type proc, const UInt64& level, con
 
   kLocked = YES;
 
-  for (Ne::Kernel::SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
-    if (kRegisteredSystemCalls[i].fActive) continue;
+  auto i = hash % kMaxDispatchCallCount;
 
-    kRegisteredSystemCalls[i].fHash      = hash;
-    kRegisteredSystemCalls[i].fProc      = proc;
-    kRegisteredSystemCalls[i].fActive    = YES;
-    kRegisteredSystemCalls[i].fAuthLevel = level;
+  if (i > kMaxDispatchCallCount) return -1;
+  if (kRegisteredSystemCalls[i].fActive) return -1;
 
-    kLocked = NO;
-
-    return i;
-  }
+  kRegisteredSystemCalls[i].fHash      = hash;
+  kRegisteredSystemCalls[i].fProc      = proc;
+  kRegisteredSystemCalls[i].fActive    = YES;
+  kRegisteredSystemCalls[i].fAuthLevel = level;
 
   kLocked = NO;
 
   return -1;
 }
 
-EXTERN_C Void hali_remove_entry(const SInt64& hash) {
+EXTERN_C Void hali_remove_entry(const UInt64& hash) {
   if (!hash) return;
 
   STATIC BOOL kLocked = NO;
@@ -45,18 +42,15 @@ EXTERN_C Void hali_remove_entry(const SInt64& hash) {
 
   kLocked = YES;
 
-  for (Ne::Kernel::SizeT i = 0UL; i < kMaxDispatchCallCount; ++i) {
-    if (kRegisteredSystemCalls[i].fHash != hash) continue;
+  auto i = hash % kMaxDispatchCallCount;
 
-    kRegisteredSystemCalls[i].fProc      = nullptr;
-    kRegisteredSystemCalls[i].fHash      = 0;
-    kRegisteredSystemCalls[i].fActive    = NO;
-    kRegisteredSystemCalls[i].fAuthLevel = 0;
+  if (i > kMaxDispatchCallCount) return;
+  if (kRegisteredSystemCalls[i].fHash != hash) return;
 
-    kLocked = NO;
-
-    return;
-  }
+  kRegisteredSystemCalls[i].fProc      = nullptr;
+  kRegisteredSystemCalls[i].fHash      = 0;
+  kRegisteredSystemCalls[i].fActive    = NO;
+  kRegisteredSystemCalls[i].fAuthLevel = 0;
 
   kLocked = NO;
 }
