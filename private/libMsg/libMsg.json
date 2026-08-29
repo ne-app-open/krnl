@@ -9,6 +9,8 @@
     "-shared",
     "-fPIC",
     "-fno-rtti",
+    "-L../libSystem",
+    "-lSystem",
     "-fno-exceptions",
     "-Wl,--subsystem=17"
   ],

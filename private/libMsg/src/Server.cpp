@@ -13,8 +13,8 @@ static SemaphoreRef      kSemaphore{nullptr};
 IMPORT_C UInt32 libmsg_close_library(Void) {
   if (kSemaphore) return kErrorInvalidData;
 
-  kFuncs   = nullptr;
-  kFuncCnt = 0;
+  if (kFuncs) kFuncs   = nullptr;
+  if (kFuncCnt) kFuncCnt = 0;
 
   return kErrorSuccess;
 }
@@ -39,6 +39,7 @@ IMPORT_C UInt32 libmsg_eval_expr(struct LIBMSG_EXPR* head, VoidPtr arg, SizeT ar
 
 IMPORT_C Void libmsg_init_library(libmsg_func_type* funcs, SizeT cnt) {
   if (!funcs || !cnt) return;
+  if (!kFuncs || !kFuncCnt) return;
 
   kFuncs   = funcs;
   kFuncCnt = cnt;
