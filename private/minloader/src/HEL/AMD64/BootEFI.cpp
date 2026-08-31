@@ -135,7 +135,9 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
     Boot::Stop();
   }
 
-  writer.Write("BootZ: The NeKernel Loader. Copyright 2024-2026, Amlal El Mahrouss and al.\r");
+  writer.Write("BootZ: The Ne.app NeKernel Loader. Copyright 2024-2026, Amlal El Mahrouss, Ne.app et al.\r");
+
+  STATIC Bool kAcpiDetectedMandatory = FALSE;
 
   for (SizeT index_vt = 0; index_vt < sys_table->NumberOfTableEntries; ++index_vt) {
     Char* vendor_table =
@@ -146,8 +148,14 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
         vendor_table[3] == ' ' && vendor_table[4] == 'P' && vendor_table[5] == 'T' &&
         vendor_table[6] == 'R' && vendor_table[7] == ' ') {
       handover_hdr->f_HardwareTables.f_VendorPtr = (VoidPtr) vendor_table;
+      kAcpiDetectedMandatory                     = YES;
       break;
     }
+  }
+
+  if (!kAcpiDetectedMandatory) {
+    writer.Write("BootZ: Starting from NeSystem v1.6+. ACPI is required to boot on UEFI.\r");
+    Boot::Stop();
   }
 
   // ------------------------------------------ //
