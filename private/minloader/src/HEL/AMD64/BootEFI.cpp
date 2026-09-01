@@ -198,9 +198,6 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
 
   // Fill handover header now.
 
-  handover_hdr->f_BitMapStart = nullptr; /* Start of bitmap. */
-  handover_hdr->f_BitMapSize  = 0UL;     /* Size of bitmap in bytes. */
-
   boot_scan_memory(handover_hdr, &map_key);
 
   handover_hdr->f_FirmwareCustomTables[Ne::Kernel::HEL::kHandoverTableBS] = (VoidPtr) BS;
@@ -254,12 +251,9 @@ EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTa
   reader_memtest.ReadAll(0);
 
   if (reader_memtest.Blob()) {
-    auto memtest_thread = new Boot::BootThread(reader_memtest.Blob());
-
-    if (memtest_thread) {
-      memtest_thread->SetName("MemoryTest");
-      memtest_thread->Start(handover_hdr, NO);
-    }
+    auto memtest_thread = Boot::BootThread(reader_memtest.Blob());
+    memtest_thread.SetName("MemoryTest");
+    memtest_thread.Start(handover_hdr, NO);
   }
 
   WideChar kernel_path[256U] = L"vmoskrnl.exe";
