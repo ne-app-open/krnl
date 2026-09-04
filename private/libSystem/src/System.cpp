@@ -258,3 +258,5 @@ IMPORT_C SInt32 SemClose(SemaphoreRef sem) {
 
   return kErrorInvalidCreds;
 }
+
+// END
