@@ -228,7 +228,7 @@ IMPORT_C UInt64 PrintSize(IORef ref) {
 }
 
 IMPORT_C SInt32 ThrExitCurrentThread(SInt32 ex) {
-  if (auto ret = nesys_syscall_arg_2(SYSCALL_HASH("RtliThrExitCurrentThread"), (VoidPtr) &ex); ret)
+  if (auto ret = nesys_syscall_arg_2(SYSCALL_HASH("ThrExitCurrentThread"), (VoidPtr) &ex); ret)
     return *(SInt32*) ret;
 
   return kErrorInvalidCreds;
