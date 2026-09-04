@@ -33,18 +33,21 @@ enum class PowerStdKind : UInt8 {
   kPowerStdKindLegacy = 103,
 };
 
+/// @brief Power Factory interface for ACPI or BCSA.
 class PowerFactory {
  public:
   explicit PowerFactory() = default;
   virtual ~PowerFactory() = default;
 
-  PowerFactory& operator=(const PowerFactory&) = default;
-  PowerFactory(const PowerFactory&)            = default;
+  NE_COPY_DEFAULT(PowerFactory);
 
  public:
   virtual Bool Shutdown() { return NO; }  // shutdown
   virtual Void Reboot() {}                // soft-reboot
 };
+
+using LegacyPowerFactory = PowerFactory;
+using UnknownPowerFactory = PowerFactory;
 
 }  // namespace Ne::Kernel
 
