@@ -236,3 +236,18 @@ IMPORT_C SInt32 ThrExitMainThread(SInt32 exit_code) {
 
   return exit_code;
 }
+
+IMPORT_C SemaphoreRef SemCreate(UInt32 initial_count, UInt32 max_count, const Char* name) {
+  if (auto ret = nesys_syscall_arg_4(nesys_hash_64("SemCreate"), &initial_count, &max_count,
+                                    (VoidPtr) name);
+      ret)
+    return (SemaphoreRef) ret;
+
+  return nullptr;
+}
+
+IMPORT_C SInt32 SemClose(SemaphoreRef sem) {
+  if (auto ret = nesys_syscall_arg_2(nesys_hash_64("SemClose"), sem); ret) return *(SInt32*) ret;
+
+  return kErrorInvalidCreds;
+}
