@@ -227,6 +227,13 @@ IMPORT_C UInt64 PrintSize(IORef ref) {
   return *static_cast<UInt64*>(nesys_syscall_arg_2(SYSCALL_HASH("PrintSize"), ref));
 }
 
+IMPORT_C SInt32 ThrExitCurrentThread(SInt32 ex) {
+  if (auto ret = nesys_syscall_arg_2(SYSCALL_HASH("RtliThrExitCurrentThread"), (VoidPtr) &ex); ret)
+    return *(SInt32*) ret;
+
+  return kErrorInvalidCreds;
+}
+
 IMPORT_C SInt32 ThrExitMainThread(SInt32 exit_code) {
   nesys_syscall_arg_2(SYSCALL_HASH("ThrExitMainThread"),
                       reinterpret_cast<VoidPtr>(static_cast<UIntPtr>(exit_code)));
@@ -238,7 +245,7 @@ IMPORT_C SInt32 ThrExitMainThread(SInt32 exit_code) {
 }
 
 IMPORT_C SemaphoreRef SemCreate(UInt32 initial_count, UInt32 max_count, const Char* name) {
-  if (auto ret = nesys_syscall_arg_4(nesys_hash_64("SemCreate"), &initial_count, &max_count,
+  if (auto ret = nesys_syscall_arg_4(SYSCALL_HASH("SemCreate"), &initial_count, &max_count,
                                     (VoidPtr) name);
       ret)
     return (SemaphoreRef) ret;
@@ -247,7 +254,7 @@ IMPORT_C SemaphoreRef SemCreate(UInt32 initial_count, UInt32 max_count, const Ch
 }
 
 IMPORT_C SInt32 SemClose(SemaphoreRef sem) {
-  if (auto ret = nesys_syscall_arg_2(nesys_hash_64("SemClose"), sem); ret) return *(SInt32*) ret;
+  if (auto ret = nesys_syscall_arg_2(SYSCALL_HASH("SemClose"), sem); ret) return *(SInt32*) ret;
 
   return kErrorInvalidCreds;
 }
