@@ -116,6 +116,8 @@ STATIC Void boot_scan_memory(HEL::BootInfoHeader* handover_hdr, UIntPtr* out_map
 /// @param sys_table The system table of it.
 /// @return nothing, never returns.
 EFI_EXTERN_C EFI_API Int32 BootloaderMain(EfiHandlePtr image_handle, EfiSystemTable* sys_table) {
+  if (!image_handle || !sys_table) return kEfiFail;
+
   fw_init_efi(sys_table);  ///! Init the EFI library.
 
   ST->ConOut->ClearScreen(sys_table->ConOut);
