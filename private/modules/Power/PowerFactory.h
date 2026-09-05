@@ -39,7 +39,7 @@ class PowerFactory {
   explicit PowerFactory() = default;
   virtual ~PowerFactory() = default;
 
-  NE_COPY_DEFAULT(PowerFactory);
+  NE_COPY_DEFAULT(PowerFactory)
 
  public:
   virtual Bool Shutdown() { return NO; }  // shutdown
